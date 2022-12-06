@@ -1,0 +1,61 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.page {
+  /* background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%); */
+  background-color: #e2ebf0;
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  padding: 0;
+  height: 100vh;
+}
+
+.list {
+  padding: 30px;
+  width: fit-content;
+  height: 100%;
+  overflow-y: scroll;
+  margin-bottom: 10rem;
+}
+
+.list ul {
+  padding:  2rem;
+  border: 2px #cfd9df solid;
+  border-radius: 30px;
+}
+.list ul li {
+  list-style-type: none; 
+  margin: 2rem;
+  /* background-color: #e97040; */
+  color: #31322c;
+  padding: 1rem;
+  border-radius: 3px;
+  box-shadow: 1px 1px 3px #cfd9df;
+}
+
+li code {
+  font-size: 1.3rem;
+  margin-left: 1rem;
+}
+
+/* pending */
+.status1 {
+  background-image: linear-gradient(120deg, #f9d770 0%, #ebedee 12%);
+}
+
+/* success */
+.status2 {
+  background-image: linear-gradient(120deg, #69a794 0%, #ebedee 12%);
+}
+
+/* failed */
+.status3 {
+  background-image: linear-gradient(120deg, #bf3553 0%, #ebedee 12%);
+}

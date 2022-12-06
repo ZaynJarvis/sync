@@ -3,13 +3,23 @@
 package main
 
 import (
+	"context"
+	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"sync/biz/handler"
 )
 
 func register(r *server.Hertz) {
+	r.Use(CORS)
 	r.GET("/ping", handler.Ping)
 	r.POST("/sync", handler.Sync)
-	r.GET("/sync/:vid", handler.SyncStatus)
-	r.GET("/play/:vid", handler.Play)
+	r.GET("/sync/:id", handler.SyncStatus)
+	r.GET("/play/:id", handler.Play)
+	r.GET("/vid/:vid", handler.VID)
+	r.GET("/vid", handler.Videos)
+}
+
+func CORS(ctx context.Context, c *app.RequestContext) {
+	c.Response.Header.Set("Access-Control-Allow-Origin", "*")
+	c.Response.Header.Set("Access-Control-Allow-Headers", "Content-Type")
 }

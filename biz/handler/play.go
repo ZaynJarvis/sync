@@ -15,21 +15,25 @@ import (
 // 3.1 if sync pending, return source_url
 // 3.2 if sync success, depend on play_param return volc-vod transcode_url
 func Play(ctx context.Context, c *app.RequestContext) {
-	vid := c.Param("vid")
-	videoInfo := store.Get(vid)
-
-	switch videoInfo.Status {
-	case store.Unknown, store.Failed:
-		c.JSON(http.StatusNotFound, utils.H{"message": "vid not found"})
+	id := c.Param("id")
+	status := vod.QueryTaskByID(id)
+	videoInfo := store.Get(id)
+	switch status {
+	case store.Unknown, store.Failed: // depend on use case, can fallback to source url
+		c.JSON(http.StatusNotFound, utils.H{"message": "vid upload failed"})
 	case store.Pending:
-		c.JSON(http.StatusOK, utils.H{"url": videoInfo.SourceURL})
+		c.JSON(http.StatusOK, utils.H{"url": videoInfo.SourceURL, "type": "source_url", "reason": "uploading"})
 	case store.Success:
-		urls := vod.PlayInfo(vid)
-		if len(urls) == 0 {
-			c.JSON(http.StatusNotFound, utils.H{"message": "vid not found"})
+		urls, err := vod.PlayInfo(videoInfo.VID)
+		if err != nil {
+			c.JSON(http.StatusNotFound, utils.H{"message": err.Error()})
 			return
 		}
-		c.JSON(http.StatusOK, utils.H{"url": TranscodeDecider( /* transcodeParam, */ urls)})
+		if len(urls) == 0 {
+			c.JSON(http.StatusOK, utils.H{"url": videoInfo.SourceURL, "type": "source_url", "reason": "play status not ready"})
+			return
+		}
+		c.JSON(http.StatusOK, utils.H{"url": TranscodeDecider( /* transcodeParam, */ urls), "type": "volc_video"})
 	}
 }
 
