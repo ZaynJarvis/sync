@@ -9,7 +9,8 @@ const List = () => {
   // Initialize the state with an empty array
   const [data, setData] = useState([]);
   const [video, setVideo] = useState("");
-  const [refresh, setRefresh] = useState(null);
+  const [vid, setVID] = useState("");
+  const [refresh, setRefresh] = useState(0);
 
 
   // Use the useEffect hook to make the API call and update the state
@@ -28,35 +29,36 @@ const List = () => {
     if (video) {
       fetch('http://0.0.0.0:8888/play/' + video)
         .then(response => response.json())
-        .then(data => {setPlay(data);setRefresh(true)})
+        .then(data => { setPlay(data); setRefresh(Math.random()) })
     }
   }, [video]);
 
   return (
     <div className='page'>
       <div className='list'>
-        
+
         <div className='id-container'>
-        <FileInput setRefresh={setRefresh} />
-        <ul className='horizontal'>
-          <li className='status1'>Pending</li>
-          <li className='status2'>Success</li>
-          <li className='status3'>Failed</li>
+          <FileInput setRefresh={setRefresh} />
+          <ul className='horizontal'>
+            <li className='status1'>Pending</li>
+            <li className='status2'>Success</li>
+            <li className='status3'>Failed</li>
           </ul>
-        <ul className='veritical'>
-          {data.map((i) =>
-            <li key={i.ID} className={'status' + i.Status}>
-              <code onClick={() => setVideo(i.ID)}
-              // {'color': i.Status == 2 ? 'success' : i.Status == 1 ? 'pending' : 'failed'}
-              >{i.ID}</code>
-            </li>
-          )}
-        </ul>
+          <ul className='veritical'>
+            {data ? data.map((i) =>
+              <li key={i.ID} className={'status' + i.Status}>
+                <code onClick={() => {setVideo(i.ID);setVID(i.VID)}}
+                // {'color': i.Status == 2 ? 'success' : i.Status == 1 ? 'pending' : 'failed'}
+                >{i.ID}</code>
+              </li>
+            ) : <></>}
+          </ul>
         </div>
       </div>
       <div className='video-container'>
         {video !== "" ? (<div >
           <p className='title'>{'Video ID: ' + video}</p>
+          <p className='title'>{'VID: ' + vid}</p>
           {
             play.url &&
             <>

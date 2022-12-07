@@ -16,6 +16,7 @@
   padding: 2rem 4rem;
   border: 2px #cfd9df solid;
   border-radius: 30px;
+  overflow: scroll;
 }
 
 ul {

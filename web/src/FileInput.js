@@ -16,7 +16,7 @@ const FileInput = ({ setRefresh }) => {
         body: event.target.result,
       })
         .then(response => response.json())
-        .then(() => setRefresh(true))
+        .then(() => setRefresh(Math.random()))
     };
 
     reader.readAsText(file);
