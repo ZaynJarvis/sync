@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-// import Player from 'xgplayer';
-import VideoJS from './video'
+import VideoJS from './Video'
+import FileInput from './FileInput'
 import 'video.js/dist/video-js.css';
 import './App.css';
+import Link from './link.svg'
 
 const List = () => {
   // Initialize the state with an empty array
   const [data, setData] = useState([]);
   const [video, setVideo] = useState("");
+  const [refresh, setRefresh] = useState(null);
 
 
   // Use the useEffect hook to make the API call and update the state
@@ -15,7 +17,7 @@ const List = () => {
     fetch('http://0.0.0.0:8888/vid')
       .then(response => response.json())
       .then(data => setData(data))
-  }, []);
+  }, [refresh]);
 
   // Initialize the state with an empty array
   const [play, setPlay] = useState("");
@@ -26,14 +28,22 @@ const List = () => {
     if (video) {
       fetch('http://0.0.0.0:8888/play/' + video)
         .then(response => response.json())
-        .then(data => setPlay(data))
+        .then(data => {setPlay(data);setRefresh(true)})
     }
   }, [video]);
 
   return (
     <div className='page'>
       <div className='list'>
-        <ul style={{ 'margin': 0 }}>
+        
+        <div className='id-container'>
+        <FileInput setRefresh={setRefresh} />
+        <ul className='horizontal'>
+          <li className='status1'>Pending</li>
+          <li className='status2'>Success</li>
+          <li className='status3'>Failed</li>
+          </ul>
+        <ul className='veritical'>
           {data.map((i) =>
             <li key={i.ID} className={'status' + i.Status}>
               <code onClick={() => setVideo(i.ID)}
@@ -42,15 +52,23 @@ const List = () => {
             </li>
           )}
         </ul>
+        </div>
       </div>
-      <div>
+      <div className='video-container'>
         {video !== "" ? (<div >
-          <p>{video}</p>
+          <p className='title'>{'Video ID: ' + video}</p>
           {
             play.url &&
             <>
-              <p>{play.reason}</p>
-              <a target='_blank' href={play.url}>{play.type}</a>
+              <div className='badge'>
+                <span className={play.type == 'source_url' ? 'url badge-pending' : 'url badge-good'}>
+                  <a className='tooltip' target='_blank' href={play.url}>{play.type}
+                    <span className='tooltiptext'>{play.url.split("?")[0]}</span>
+                  </a>
+                  <img src={Link} className="link" alt="link" />
+                </span>
+                {play.reason ? <span className='badge-warning'>{'reason: ' + play.reason}</span> : <></>}
+              </div>
               <VideoJS options={{
                 autoplay: true,
                 controls: true,
@@ -61,7 +79,6 @@ const List = () => {
                   type: 'video/mp4'
                 }]
               }} />
-              {/* <p style={{ 'fontSize': '5px' }}>{play.url}</p> */}
             </>
           }
         </div>) : <></>}

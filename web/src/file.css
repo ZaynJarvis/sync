@@ -1,0 +1,22 @@
+label {
+    color: #322413cc;
+    background-color: transparent;
+    outline: none;
+    padding: 8px 20px;
+    border:none;
+    border-radius: 8px;
+    box-shadow: 2px 1px 4px #333d;
+    font-weight: bold;
+}
+
+.preview {
+    /* background-color: rgb(227, 231, 223); */
+    box-shadow: inset 1px 0 3px rgba(140, 124, 124, 0.5);
+    border-radius: 4px;
+    color: #322413cc;
+    max-height: 4rem;
+    font-size: 12px;
+    padding: 1rem;
+    overflow: scroll;
+    margin-top: 1rem;
+}

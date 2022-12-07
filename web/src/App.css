@@ -1,16 +1,5 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
 .page {
-  /* background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%); */
   background-color: #e2ebf0;
-  min-height: 100vh;
   width: 100vw;
   display: flex;
   padding: 0;
@@ -19,29 +8,57 @@
 
 .list {
   padding: 30px;
-  width: fit-content;
-  height: 100%;
-  overflow-y: scroll;
-  margin-bottom: 10rem;
+  width: 700px;
 }
 
-.list ul {
-  padding:  2rem;
+.id-container {
+  height: 100%;
+  padding: 2rem 4rem;
   border: 2px #cfd9df solid;
   border-radius: 30px;
 }
-.list ul li {
-  list-style-type: none; 
-  margin: 2rem;
-  /* background-color: #e97040; */
+
+ul {
+  padding: 0;
+}
+
+.horizontal {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+}
+
+.horizontal li {
+  font-family: monospace;
+  font-weight: bold;
+  padding: auto;
+  margin: 0;
+}
+
+.veritical {
+  overflow: scroll;
+}
+
+ul li,
+.title {
+  list-style-type: none;
+  background-color: #ebedee;
   color: #31322c;
   padding: 1rem;
   border-radius: 3px;
   box-shadow: 1px 1px 3px #cfd9df;
 }
 
-li code {
-  font-size: 1.3rem;
+.title {
+  width: fit-content;
+}
+
+ul li {
+  margin: 2rem 0;
+}
+
+li * {
+  font-size: 1.2rem;
   margin-left: 1rem;
 }
 
@@ -58,4 +75,80 @@ li code {
 /* failed */
 .status3 {
   background-image: linear-gradient(120deg, #bf3553 0%, #ebedee 12%);
+}
+
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  /* width: 120px; */
+  background-color: #000d;
+  color: #fff;
+  /* text-align: center; */
+  padding: 5px 0;
+  border-radius: 6px;
+  font-size: 10px;
+  padding: 0.3rem 0.5rem;
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.badge {
+  margin: 1rem 0;
+}
+
+.badge-good {
+  background-color: #3fd0a5cc;
+}
+
+.badge-pending {
+  background-color: #e06983cc;
+}
+
+.badge-warning {
+  background-color: #f9d770;
+}
+
+.badge span {
+  /* background-color: white; */
+  color: #31322c;
+  width: fit-content;
+  padding: 0.2rem 0.5rem 0.4rem 0.5rem;
+  margin-right: 0.8rem;
+  border-radius: 5px;
+  box-shadow: 2px 1px 5px #3335;
+}
+
+.link {
+  height: 0.8rem;
+  margin-left: 0.3rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+.url, .badge {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.video-container {
+  /* width: 100%; */
+  flex-grow: 1;
+  padding: 2rem;
 }

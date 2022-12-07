@@ -79,6 +79,7 @@ const (
 	Pending
 	Success
 	Failed
+	Published
 )
 
 func QueryTaskByID(id string) store.Status {

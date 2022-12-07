@@ -30,7 +30,7 @@ func Play(ctx context.Context, c *app.RequestContext) {
 			return
 		}
 		if len(urls) == 0 {
-			c.JSON(http.StatusOK, utils.H{"url": videoInfo.SourceURL, "type": "source_url", "reason": "play status not ready"})
+			c.JSON(http.StatusOK, utils.H{"url": videoInfo.SourceURL, "type": "source_url", "reason": "not published"})
 			return
 		}
 		c.JSON(http.StatusOK, utils.H{"url": TranscodeDecider( /* transcodeParam, */ urls), "type": "volc_video"})
