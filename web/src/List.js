@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import VideoJS from './Video'
 import FileInput from './FileInput'
 import 'video.js/dist/video-js.css';
-import './App.css';
+import './List.css';
 import Link from './link.svg'
 
 const List = () => {
@@ -29,7 +29,7 @@ const List = () => {
     if (video) {
       fetch('http://0.0.0.0:8888/play/' + video)
         .then(response => response.json())
-        .then(data => { setPlay(data); setRefresh(Math.random()) })
+        .then(data => { setPlay(data); console.log(play.url); setRefresh(Math.random()) })
     }
   }, [video]);
 
@@ -47,7 +47,7 @@ const List = () => {
           <ul className='veritical'>
             {data ? data.map((i) =>
               <li key={i.ID} className={'status' + i.Status}>
-                <code onClick={() => {setVideo(i.ID);setVID(i.VID)}}
+                <code className={video === i.ID ? 'selected' : ''} onClick={() => {setVideo(i.ID);setVID(i.VID)}}
                 // {'color': i.Status == 2 ? 'success' : i.Status == 1 ? 'pending' : 'failed'}
                 >{i.ID}</code>
               </li>

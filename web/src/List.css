@@ -78,6 +78,9 @@ li * {
   background-image: linear-gradient(120deg, #bf3553 0%, #ebedee 12%);
 }
 
+.selected {
+  font-weight: bolder;
+}
 
 .tooltip {
   position: relative;
