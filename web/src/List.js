@@ -3,6 +3,7 @@ import VideoJS from './Video'
 import FileInput from './FileInput'
 import 'video.js/dist/video-js.css';
 import './List.css';
+import './file.css';
 import Link from './link.svg'
 
 const List = () => {
@@ -58,12 +59,13 @@ const List = () => {
         {video !== "" ? (<div >
           <p className='title'>{'Video ID: ' + video}</p>
           <p className='title'>{'VID: ' + vid}</p>
+          {play.info ? <pre style={{'maxWidth': '500px'}} className='preview'>{JSON.stringify(play.info, null, 2)}</pre> : <></>}
           {
             play.url &&
             <>
               <div className='badge'>
-                <span className={play.type == 'source_url' ? 'url badge-pending' : 'url badge-good'}>
-                  <a className='tooltip' target='_blank' href={play.url}>{play.type}
+                <span className={play.type === 'source_url' ? 'url badge-pending' : 'url badge-good'}>
+                  <a className='tooltip' target='_blank' rel="noreferrer" href={play.url}>{play.type}
                     <span className='tooltiptext'>{play.url.split("?")[0]}</span>
                   </a>
                   <img src={Link} className="link" alt="link" />

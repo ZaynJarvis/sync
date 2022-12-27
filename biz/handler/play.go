@@ -20,7 +20,7 @@ func Play(ctx context.Context, c *app.RequestContext) {
 	videoInfo := store.Get(id)
 	switch status {
 	case store.Unknown, store.Failed: // depend on use case, can fallback to source url
-		c.JSON(http.StatusNotFound, utils.H{"message": "vid upload failed"})
+		c.JSON(http.StatusNotFound, utils.H{"message": "vid upload failed", "info": videoInfo})
 	case store.Pending:
 		c.JSON(http.StatusOK, utils.H{"url": videoInfo.SourceURL, "type": "source_url", "reason": "uploading"})
 	case store.Success:
