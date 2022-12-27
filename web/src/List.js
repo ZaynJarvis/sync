@@ -29,7 +29,7 @@ const List = () => {
     if (video) {
       fetch('http://0.0.0.0:8888/play/' + video)
         .then(response => response.json())
-        .then(data => { setPlay(data); console.log(play.url); setRefresh(Math.random()) })
+        .then(data => { setPlay(data); setVID(data.vid); setRefresh(Math.random()) })
     }
   }, [video]);
 
@@ -47,8 +47,7 @@ const List = () => {
           <ul className='veritical'>
             {data ? data.map((i) =>
               <li key={i.ID} className={'status' + i.Status}>
-                <code className={video === i.ID ? 'selected' : ''} onClick={() => {setVideo(i.ID);setVID(i.VID)}}
-                // {'color': i.Status == 2 ? 'success' : i.Status == 1 ? 'pending' : 'failed'}
+                <code className={video === i.ID ? 'selected' : ''} onClick={() => setVideo(i.ID)}
                 >{i.ID}</code>
               </li>
             ) : <></>}
